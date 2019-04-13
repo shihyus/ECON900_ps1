@@ -25,10 +25,11 @@ for one_file_name in glob.glob("html_files/*.html"):
 		currency_market_cap = r.find("td", {"class": "market-cap"})['data-sort']
 		currency_price = r.find("a", {"class": "price"}).text
 		currency_volume = r.find("a", {"class": "volume"}).text
-		link = r.find
+		# currency_link = r.find("td", {"class":"currency-name"}).find("a",find("href")).text
+		# print(currency_link)
 
-		newcoin = open(link)
-		newcoin_table
+		#newcoin = open(link)
+		#newcoin_table
 
 		#print(currency_short_name)
 		#print(currency_name)
