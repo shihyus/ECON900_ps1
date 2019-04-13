@@ -2,11 +2,35 @@ import os
 from bs4 import BeautifulSoup
 import glob
 import pandas as pd
+import urllib.request
 
 if not os.path.exists("parsed_results"):
 	os.mkdir("parsed_results")
 
 df = pd.DataFrame()
+
+
+def openlink(link):
+	#f = open("https://coinmarketcap.com/" + link + ".html","wb")
+	#link = "https://coinmarketcap.com/" + link
+	response = urllib.request.urlopen("https://coinmarketcap.com/" + link) #encodint="utf-8"
+	html = response.read()
+	html = html.decode("utf-8")
+	html = BeautifulSoup(html, 'html.parser')
+	print(html)
+	currencies_table = soup.find("table", {"id": "currencies-all"})
+	#print ("id = ", currencies_table)
+	currencies_tbody = currencies_table.find("tbody")
+	#print(currencies_tbody)
+	currencies_rows = currencies_tbody.find_all("tr")
+
+	for r in currencies_rows:
+		print (r)
+		currency_name = r.find("th").text
+		print(currency_name)
+	#f.write(html) 
+	#f.close()
+	#return html
 
 for one_file_name in glob.glob("html_files/*.html"):
 	print("parsing: " + one_file_name)
@@ -30,8 +54,8 @@ for one_file_name in glob.glob("html_files/*.html"):
 		currency_volume = r.find("a", {"class": "volume"}).text
 		currency_link = r.find("td", {"class":"currency-name"}).find('a',href = True)['href']
 		# print(currency_link)
-		print(currency_link)
-		#newcoin = open(link)
+		#print(currency_link)
+		newcoin = openlink(currency_link)
 		#newcoin_table
 		#coinpage = openlink(currency_link)
 		
@@ -50,15 +74,7 @@ for one_file_name in glob.glob("html_files/*.html"):
 			#'24H_change': currency_change
 			}, ignore_index=True)
 
-def openlink(link):
-	#f = open("https://coinmarketcap.com/" + link + ".html","wb")
-	response = urllib.request.urlopen("https://coinmarketcap.com/" + link) #encodint="utf-8"
-	html = response.read()
-	html = html.decode("utf-8")
-	#print(html)
-	#f.write(html) 
-	#f.close()
-	return html
+
 
 
 df.to_csv("parsed_results/coinmarketcap_dataset.csv")
