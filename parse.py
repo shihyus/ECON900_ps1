@@ -15,23 +15,26 @@ for one_file_name in glob.glob("html_files/*.html"):
 	soup = BeautifulSoup(f.read(), 'html.parser')
 	f.close()
 
-	currencies_table = soup.find("table", {"id": "currencies"})
+	currencies_table = soup.find("table", {"id": "currencies-all"})
+	#print ("id = ", currencies_table)
 	currencies_tbody = currencies_table.find("tbody")
+	#print(currencies_tbody)
 	currencies_rows = currencies_tbody.find_all("tr")
 
 	for r in currencies_rows:
 		currency_short_name = r.find("td", {"class": "currency-name"}).find("span", {"class": "currency-symbol"}).find("a").text
+		#print(currency_short_name)
 		currency_name = r.find("td", {"class":"currency-name"}).find("a",{"class":"currency-name-container"}).text
 		currency_market_cap = r.find("td", {"class": "market-cap"})['data-sort']
 		currency_price = r.find("a", {"class": "price"}).text
 		currency_volume = r.find("a", {"class": "volume"}).text
-		# currency_link = r.find("td", {"class":"currency-name"}).find("a",find("href")).text
+		currency_link = r.find("td", {"class":"currency-name"}).find('a',href = True)['href']
 		# print(currency_link)
-
+		print(currency_link)
 		#newcoin = open(link)
 		#newcoin_table
-
-		#print(currency_short_name)
+		#coinpage = openlink(currency_link)
+		
 		#print(currency_name)
 		#print(currency_market_cap)
 		#print(currency_price)
@@ -47,6 +50,15 @@ for one_file_name in glob.glob("html_files/*.html"):
 			#'24H_change': currency_change
 			}, ignore_index=True)
 
+def openlink(link):
+	#f = open("https://coinmarketcap.com/" + link + ".html","wb")
+	response = urllib.request.urlopen("https://coinmarketcap.com/" + link) #encodint="utf-8"
+	html = response.read()
+	html = html.decode("utf-8")
+	#print(html)
+	#f.write(html) 
+	#f.close()
+	return html
 
 
 df.to_csv("parsed_results/coinmarketcap_dataset.csv")
