@@ -29,14 +29,14 @@ def openlink(link):
 		p = p.replace("\n","")
 		#print("Right =",p,type(p))
 
-		#if (p == "Market Cap"):
-		#	q = r.find_all('span',{'data-currency-value':""})
-		#	marketCap = q
+		if (p == "Market Cap"):
+			q = r.find_all('span',{'data-currency-value':""})
+			marketCap = q[1].text
 			#print (p , q[1].text)
 			#openvalue = q[0]
 			#closevalue = q[1]
 			#print (openvalue, closevalue)
-		if (p == "24 Hour Volume"):
+		elif (p == "24 Hour Volume"):
 			q = r.find_all('span',{'data-currency-value':""})
 			#print (p, q[1].text)
 			dayVolume = q[1].text
@@ -54,7 +54,7 @@ def openlink(link):
 			#print("Open price =", openPrice, "Close price =", closePrice)
 
 	time.sleep(10)
-	return dayVolume, high, low, openPrice, closePrice
+	return marketCap, dayVolume, high, low, openPrice, closePrice
 
 
 if not os.path.exists("parsed_results"):
@@ -85,7 +85,7 @@ for one_file_name in glob.glob("html_files/*.html"):
 		currency_link = r.find("td", {"class":"currency-name"}).find('a',href = True)['href']
 		# print(currency_link)
 		#print(currency_link)
-		dayVolume, high, low, openPrice, closePrice = openlink(currency_link)
+		marketCap, dayVolume, high, low, openPrice, closePrice = openlink(currency_link)
 		#newcoin_table
 		#coinpage = openlink(currency_link)
 		
@@ -100,7 +100,7 @@ for one_file_name in glob.glob("html_files/*.html"):
 			'market_cap': currency_market_cap,
 			'price': currency_price,
 			'volume': dayVolume,
-			#'marketCap' : marketCap,
+			'marketCap' : marketCap,
 			#'dayVolume' : dayVolume,
 			'high' : high,
 			'low' : low,

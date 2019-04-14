@@ -22,11 +22,7 @@ for r in currencies_rows:
 	#if r.find("th") == None:
 	#	p = r.find("th")
 	#	print("FFFFFF", p)
-	if r.find("th",{"scope": "row"}) == True:
-			print("Rows = r = ",r)
-			currency_name = r.find("th",{"scope": "row"}).text
-			print(currency_name)
-			
+	
 	p = r.find("th").get_text()
 	p = p.replace("\r","")
 	p = p.replace("\n","")

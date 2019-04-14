@@ -7,7 +7,7 @@ if not os.path.exists("html_files"):
 	os.mkdir("html_files")
 
 
-for i in range(3):
+for i in range(1):
 	current_time_stamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d%H%M%S')
 	print(str(i) + ":" + current_time_stamp)
 	f = open("html_files/coinmarketcap" + current_time_stamp + ".html","wb")
