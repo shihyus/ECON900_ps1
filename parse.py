@@ -17,17 +17,21 @@ def openlink(link):
 	html = response.read()
 	html = html.decode("utf-8")
 	html = BeautifulSoup(html, 'html.parser')
-	print(html)
-	currencies_table = soup.find("table", {"id": "currencies-all"})
+	currencies_table = soup.find("table")
+	#print ("table = ", currencies_table)
 	#print ("id = ", currencies_table)
 	currencies_tbody = currencies_table.find("tbody")
 	#print(currencies_tbody)
 	currencies_rows = currencies_tbody.find_all("tr")
 
 	for r in currencies_rows:
-		print (r)
-		currency_name = r.find("th").text
-		print(currency_name)
+		
+		if r.find("th",{"scope": "row"}) == True:
+			print("Rows = r = ",r)
+			currency_name = r.find("th",{"scope": "row"}).text
+			print(currency_name)
+		
+		
 	#f.write(html) 
 	#f.close()
 	#return html
