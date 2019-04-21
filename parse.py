@@ -16,10 +16,18 @@ def openlink(link):
 
 	html = BeautifulSoup(html, 'html.parser')
 
+	dayVolume = "None"
+	price = "None"
+	marketCap = "None"
+	high = "None" 
+	low = "None" 
+	openPrice = "None"
+	closePrice = "None"
+
 
 	price_find = html.find('span', {"id": "quote_price"})
 	price = price_find.find('span', {"class": "text-semi-bold"}).text
-	print(price)
+	#print(price)
 
 	currencies_table = html.find('table', {"class": "cmc-table-striped"})
 	currencies_tbody = currencies_table.find("tbody")
@@ -63,9 +71,10 @@ def openlink(link):
 
 
 			#print("Open price =", openPrice, "Close price =", closePrice)
-	#l = [dayVolume, price, marketCap, high, low, openPrice, closePrice]
-	#print ("l = ", l)
+	l = [dayVolume, price, marketCap, high, low, openPrice, closePrice]
+	print ("l = ", l)
 	time.sleep(7.2)
+	#print(dayVolume, price, marketCap, high, low, openPrice, closePrice)
 	#for i in l:
 		#if (i == "None"):
 			#print ("error result = ", l, currencies_rows)
@@ -127,9 +136,9 @@ for one_file_name in glob.glob("html_files/*.html"):
 			#'supply': currency_supply,
 			#'24H_change': currency_change
 			}, ignore_index=True)
-		#print ("length of df =", len(df))
-		if len(df) > 10:
-			break
+		# #print ("length of df =", len(df))
+		# if len(df) > 10:
+		# 	break
 
 
 
