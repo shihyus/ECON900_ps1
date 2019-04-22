@@ -92,12 +92,12 @@ def openlink(link):
 				closePrice = "None"
 			#print("Open price =", openPrice, "Close price =", closePrice)
 	l = [dayVolume, price, marketCap, high, low, openPrice, closePrice]
-	print ("l = ", l)
+	#print ("l = ", l)
 	time.sleep(7.2)
 	#print(dayVolume, price, marketCap, high, low, openPrice, closePrice)
-	for i in l:
-		if (i == "None"):
-			print ("error result = ", l, currencies_rows)
+	#for i in l:
+		#if (i == "None"):
+			#print ("error result = ", l, currencies_rows)
 	return dayVolume, price, marketCap, high, low, openPrice, closePrice
 
 
