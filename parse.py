@@ -9,6 +9,7 @@ import time
 def openlink(link):
 	#f = open("https://coinmarketcap.com/" + link + ".html","wb")
 	link = "https://coinmarketcap.com" + link
+	#link = "https://coinmarketcap.com/currencies/aencoin/"
 	print ("link =", link)
 	response = urllib.request.urlopen(link) #encodint="utf-8"
 	#print (response.info())
@@ -23,7 +24,6 @@ def openlink(link):
 	low = "None" 
 	openPrice = "None"
 	closePrice = "None"
-
 
 	price_find = html.find('span', {"id": "quote_price"})
 	price = price_find.find('span', {"class": "text-semi-bold"}).text
@@ -48,36 +48,55 @@ def openlink(link):
 			#closevalue = q[1]
 			#print (openvalue, closevalue)
 		if (p == "24HourVolume"):
-			q = r.find_all('span',{'data-currency-value':""})
-			dayVolume = q[1].text
+			if (r.find_all('span',{'data-currency-value':""} )):
+				#print (type(q[0]))
+				q = r.find_all('span',{'data-currency-value':""} )
+				#print (p, q[1].text)
+				dayVolume = q[1].text
+			else:
+				dayVolume = "None"
 
 		# elif (p == blank+"Price"):
 		# 	q = r.find_all('span',{'data-currency-value':""})
 		# 	price = q[1].text
 
 		elif (p == "MarketCap"):
-			q = r.find_all('span',{'data-currency-value':""})
-			marketCap = q[1].text
+			if (r.find_all('span',{'data-currency-value':""} )):
+				q = r.find_all('span',{'data-currency-value':""})
+				#print (p, q[1].text)
+				marketCap = q[1].text
+			else:
+				marketCap = "None"
 
 		elif (p == "Yesterday'sHigh/Low"):
-			q = r.find_all('span',{'data-currency-value':""})
-			high = q[1].text
-			low = q[4].text
+			if (r.find_all('span',{'data-currency-value':""})):
+				q = r.find_all('span',{'data-currency-value':""})
+				#print (p, q[1].text)
+				#print (p, q[4].text)
+				high = q[1].text
+				low = q[4].text
+			else:
+				high = "None"
+				low = "None"
 
 		elif (p == "Yesterday'sOpen/Close"):
-			q = r.find_all('span',{'data-currency-value':""})
-			openPrice = q[1].text
-			closePrice = q[4].text
-
-
+			if (r.find_all('span',{'data-currency-value':""})):
+				q = r.find_all('span',{'data-currency-value':""})
+				#print (p, q[1].text)
+				#print (p, q[4].text)
+				openPrice = q[1].text
+				closePrice = q[4].text
+			else:
+				openPrice = "None"
+				closePrice = "None"
 			#print("Open price =", openPrice, "Close price =", closePrice)
 	l = [dayVolume, price, marketCap, high, low, openPrice, closePrice]
 	print ("l = ", l)
 	time.sleep(7.2)
 	#print(dayVolume, price, marketCap, high, low, openPrice, closePrice)
-	#for i in l:
-		#if (i == "None"):
-			#print ("error result = ", l, currencies_rows)
+	for i in l:
+		if (i == "None"):
+			print ("error result = ", l, currencies_rows)
 	return dayVolume, price, marketCap, high, low, openPrice, closePrice
 
 
