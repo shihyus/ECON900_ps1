@@ -1,0 +1,39 @@
+parsing: html_files\coinmarketcap20190421093943.html
+link = https://coinmarketcap.com/currencies/bitcoin/
+l =  ['14,217,522,039', '5385.85', '95,113,375,218', '5359.93', '5257.34', '5335.88', '5314.53']
+   Scrapping_time Short_name     Name  ...      Low OpenPrice ClosePrice
+0  20190421093943        BTC  Bitcoin  ...  5257.34   5335.88    5314.53
+
+[1 rows x 10 columns]
+link = https://coinmarketcap.com/currencies/ethereum/
+l =  ['5,961,284,661', '171.72', '18,161,871,537', '174.42', '167.43', '173.72', '170.05']
+   Scrapping_time Short_name      Name  ...     Low OpenPrice ClosePrice
+0  20190421093943        ETH  Ethereum  ...  167.43    173.72     170.05
+
+[1 rows x 10 columns]
+link = https://coinmarketcap.com/currencies/ripple/
+l =  ['1,073,855,054', '0.324540', '13,621,207,109', '0.329627', '0.318746', '0.328678', '0.322449']
+   Scrapping_time Short_name Name  ...       Low OpenPrice ClosePrice
+0  20190421093943        XRP  XRP  ...  0.318746  0.328678   0.322449
+
+[1 rows x 10 columns]
+link = https://coinmarketcap.com/currencies/bitcoin-cash/
+l =  ['1,167,834,975', '291.04', '5,163,718,314', '303.33', '281.90', '300.81', '290.48']
+   Scrapping_time Short_name          Name  ...     Low OpenPrice ClosePrice
+0  20190421093943        BCH  Bitcoin Cash  ...  281.90    300.81     290.48
+
+[1 rows x 10 columns]
+link = https://coinmarketcap.com/currencies/eos/
+l =  ['1,881,685,372', '5.26', '4,959,720,885', '5.48', '5.06', '5.47', '5.25']
+   Scrapping_time Short_name Name  ...   Low OpenPrice ClosePrice
+0  20190421093943        EOS  EOS  ...  5.06      5.47       5.25
+
+[1 rows x 10 columns]
+link = https://coinmarketcap.com/currencies/litecoin/
+l =  ['2,628,951,972', '76.65', '4,710,688,405', '81.89', '75.02', '81.52', '77.33']
+   Scrapping_time Short_name      Name  ...    Low OpenPrice ClosePrice
+0  20190421093943        LTC  Litecoin  ...  75.02     81.52      77.33
+
+[1 rows x 10 columns]
+link = https://coinmarketcap.com/currencies/binance-coin/
+l =  ['237,620,698', '24.46', '3,453,281,949', '24.99', '22.79', '24.99', '24.19']

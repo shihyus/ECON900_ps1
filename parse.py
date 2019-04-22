@@ -6,15 +6,16 @@ import urllib.request
 import time
 
 
+
 def openlink(link):
 	#f = open("https://coinmarketcap.com/" + link + ".html","wb")
 	link = "https://coinmarketcap.com" + link
+	#ink = "https://coinmarketcap.com/currencies/ofcoin/"
 	#link = "https://coinmarketcap.com/currencies/aencoin/"
 	print ("link =", link)
 	response = urllib.request.urlopen(link) #encodint="utf-8"
 	#print (response.info())
 	html = response.read().decode("utf-8")
-
 	html = BeautifulSoup(html, 'html.parser')
 
 	dayVolume = "None"
@@ -103,7 +104,7 @@ def openlink(link):
 if not os.path.exists("parsed_results"):
 	os.mkdir("parsed_results")
 
-df = pd.DataFrame()
+#df = pd.DataFrame({})
 
 for one_file_name in glob.glob("html_files/*.html"):
 	print("parsing: " + one_file_name)
@@ -130,16 +131,10 @@ for one_file_name in glob.glob("html_files/*.html"):
 		currency_link = r.find("td", {"class":"currency-name"}).find('a',href = True)['href']
 		# print(currency_link)
 		#print(currency_link)
+		#if (currency_link == "/currencies/ofcoin/"):
 		dayVolume, price, marketCap, high, low, openPrice, closePrice = openlink(currency_link)
 
-		#newcoin_table
-		#coinpage = openlink(currency_link)
-		
-		#print(currency_name)
-		#print(currency_market_cap)
-		#print(currency_price)
-		#print(currency_volume)
-		df = df.append({
+		df = pd.DataFrame({
 			'Scrapping_time': scrapping_time, 
 			'Short_name': currency_short_name,
 			'Name': currency_name,
@@ -151,14 +146,26 @@ for one_file_name in glob.glob("html_files/*.html"):
 			'High' : high,
 			'Low' : low,
 			'OpenPrice' : openPrice,
-			'ClosePrice' : closePrice,
-			#'supply': currency_supply,
-			#'24H_change': currency_change
-			}, ignore_index=True)
+			'ClosePrice' : closePrice},index=[0])
+
+		#df = df.update(dfnew)
+		print (df)
+		with open('parsed_results/coinmarketcap_dataset.csv', 'a') as f:
+			df.to_csv(f,header=f.tell()==0)
+		#df.to_csv("parsed_results/coinmarketcap_dataset.csv", header=f.tell()==0, index = True)
+
+		#newcoin_table
+		#coinpage = openlink(currency_link)
+		
+		#print(currency_name)
+		#print(currency_market_cap)
+		#print(currency_price)
+		#print(currency_volume)
+		
 		# #print ("length of df =", len(df))
 		# if len(df) > 10:
 		# 	break
 
 
 
-df.to_csv("parsed_results/coinmarketcap_dataset.csv")
+#df.to_csv("parsed_results/coinmarketcap_dataset.csv", header=f.tell()==0)
