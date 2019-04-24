@@ -11,10 +11,10 @@ dataset.replace('None', np.nan, inplace=True)
 dataset.fillna("0", inplace = True) 
 
 
-data = dataset.iloc[:,5:10]
+data = dataset.iloc[:,4:6]
 print(data.head())
 
-target = dataset.iloc[:,4].values
+target = dataset.iloc[:,3].values
 print(target)
 
 data_training, data_test, target_training, target_test = train_test_split(data, target, test_size = 0.25, random_state=0)
@@ -47,7 +47,7 @@ print(metrics.r2_score(target_test,predict))
 data = data.values
 #print(data)
 
-kfold_machine = KFold(n_splits=4)
+kfold_machine = KFold(n_splits=10)
 kfold_machine.get_n_splits(data)
 #print(kfold_machine)
 
